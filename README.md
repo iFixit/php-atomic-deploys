@@ -1,5 +1,7 @@
 php-atomic-deploys
 ==================
+[![Build
+Status](https://travis-ci.org/iFixit/php-atomic-deploys.svg?branch=master)](https://travis-ci.org/iFixit/php-atomic-deploys)
 
 Provides a class that allows efficient and simple atomic deploys.
 
