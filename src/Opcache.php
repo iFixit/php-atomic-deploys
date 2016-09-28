@@ -1,4 +1,4 @@
-<?
+<?php
 
 namespace iFixit\Opcache;
 use \Exception;

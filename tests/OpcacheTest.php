@@ -66,7 +66,7 @@ class OpcacheTest extends PHPUnit_Framework_TestCase {
    }
 
    protected function makePhpFile($file, $returnVal) {
-      $php = "<? return '$returnVal';";
+      $php = "<?php return '$returnVal';";
       file_put_contents($file, $php);
    }
 
