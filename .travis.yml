@@ -5,3 +5,4 @@ php:
   - 7
 before_script: phpenv config-add php.ini
 script: phpunit
+install: composer install
