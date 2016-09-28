@@ -15,4 +15,12 @@ class OpcacheTest extends PHPUnit_Framework_TestCase {
       ini_set('opcache.validate_timestamps', 0);
       $op = new Opcache();
    }
+
+   /**
+    * @expectedException Exception
+    */
+   public function testIniSettingEnable() {
+      ini_set('opcache.enable', 0);
+      $op = new Opcache();
+   }
 }
