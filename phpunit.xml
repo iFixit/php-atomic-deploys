@@ -12,4 +12,7 @@
             <directory suffix=".php">./tests/</directory>
         </testsuite>
     </testsuites>
+    <php>
+       <ini name="error_reporting" value="E_ALL"/>
+    </php>
 </phpunit>
