@@ -1,6 +1,6 @@
 <?php
 
-require 'src/Opcache.php';
+require './src/Opcache.php';
 use iFixit\Opcache\Opcache;
 
 class OpcacheTest extends PHPUnit_Framework_TestCase {
