@@ -13,6 +13,10 @@ class Opcache {
          throw new Exception(
           "ini setting: opcache.enable must be true");
       }
+      if (intval(ini_get('opcache.revalidate_freq')) < 1) {
+         throw new Exception(
+          "ini setting: opcache.revalidate_freq must be set very high");
+      }
    }
 
    /**
