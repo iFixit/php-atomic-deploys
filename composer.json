@@ -13,6 +13,6 @@
         "phpunit/phpunit": "4.0.*"
     },
     "autoload": {
-        "psr-4": {"iFixit\\": "src"}
+        "psr-4": {"iFixit\\Opcache\\": "src"}
     }
 }

@@ -1,8 +1,18 @@
 <?php
 
-use iFixit\Opcache;
+require 'src/Opcache.php';
+use iFixit\Opcache\Opcache;
 
 class OpcacheTest extends PHPUnit_Framework_TestCase {
-   public function testNothing() {
+   public function testIniSettingsArePresent() {
+      $op = new Opcache();
+   }
+
+   /**
+    * @expectedException Exception
+    */
+   public function testIniSettingValidateTimestamps() {
+      ini_set('opcache.validate_timestamps', 0);
+      $op = new Opcache();
    }
 }
