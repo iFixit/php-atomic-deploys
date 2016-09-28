@@ -6,7 +6,8 @@
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
          processIsolation="true"
-         stopOnFailure="false">
+         stopOnFailure="false"
+         bootstrap="./vendor/autoload.php">
     <testsuites>
         <testsuite name="php-atomic-deploys Test Suite">
             <directory suffix=".php">./tests/</directory>
