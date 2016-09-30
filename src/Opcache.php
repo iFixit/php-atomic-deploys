@@ -44,13 +44,22 @@ class Opcache {
     * cleared.
     */
    protected function getExpiredFiles(array $cachedFiles) {
+      // filemtime() result is cached per request
+      clearstatcache(true);
       $files = [];
       // Iterate over cached scripts
       foreach ($cachedFiles as $cachedFile) {
          $file = $cachedFile['full_path'];
          // If file still exists and the cached timestamp is behind the real one,
          // mark it for invalidation
-         if (file_exists($file) && filemtime($file) > $cachedFile['timestamp']) {
+         try {
+            if (filemtime($file) > $cachedFile['timestamp']) {
+               $files[] = $file;
+            }
+         // we can't use file_exists() cause that's based on opcache
+         // so we just call filemtime() on potentially missing files
+         // and add them to the list if they fail.
+         } catch (Exception $e) {
             $files[] = $file;
          }
       }

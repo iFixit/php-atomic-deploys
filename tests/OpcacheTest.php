@@ -65,6 +65,21 @@ class OpcacheTest extends PHPUnit_Framework_TestCase {
       $this->assertSame([$file], $files);
    }
 
+   public function testMissingFile() {
+      $op = new Opcache();
+      $file = $this->temp();
+      $this->makePhpFile($file, 'a');
+      $this->assertSame('a', require $file);
+      unlink($file);
+
+      // Sleep long enough for the clock to tick over one second so
+      // time() changes.
+      usleep(1200*1000);
+
+      // This shouldn't fail even though the cached file doesn't exist anymore.
+      $files = $op->invalidateChangedFiles();
+   }
+
    protected function makePhpFile($file, $returnVal) {
       $php = "<?php return '$returnVal';";
       file_put_contents($file, $php);
