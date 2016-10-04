@@ -24,10 +24,32 @@ class Opcache {
     * been cached.
     */
    public function invalidateChangedFiles() {
+      $this->waitForFileUpdateProtection();
       $allFiles = $this->getCachedFiles();
       $expired = $this->getExpiredFiles($allFiles);
       $this->invalidateFiles($expired);
       return $expired;
+   }
+
+   /**
+    * file_update_protection prevents caching a file if it's younger than X
+    * seconds old. This can lead to invalidating the cache, then having the
+    * file continuously recompile till it's at least X seconds old.
+    *
+    * This means files can be compiled many times in a short time frame and may
+    * include modifications made *after* the deploy process.
+    * Since php uses `request_time` (not time()) for its check, cli scripts
+    * launched immediately after deploy may never opcache some scripts.
+    *
+    * The only solution is to stall the deploy process long enough
+    * so that no file is that young. The test here simply ensures that the deploy
+    * process stalls long enough.
+    */
+   protected function waitForFileUpdateProtection() {
+      $protection = ini_get("opcache.file_update_protection");
+      if ($protection) {
+         usleep($protection * 1000000 + 50000);
+      }
    }
 
    /**

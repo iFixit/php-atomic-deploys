@@ -65,6 +65,19 @@ class OpcacheTest extends PHPUnit_Framework_TestCase {
       $this->assertSame([$file], $files);
    }
 
+   /**
+    * Make sure we can handle if file_update_protection is turned on.
+    *
+    * Note: this is complex, see src/Opcache.php for more explanation
+    */
+   public function testFileUpdateProtection() {
+      ini_set("opcache.file_update_protection", 2);
+      $time = microtime(true);
+      $op = new Opcache();
+      $files = $op->invalidateChangedFiles();
+      $this->assertGreaterThan(2, microtime(true) - $time);
+   }
+
    public function testMissingFile() {
       $op = new Opcache();
       $file = $this->temp();
